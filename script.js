@@ -84,7 +84,7 @@ function checkForWinOrDraw() {
 
 function announceWinner(player) {
     const messageElement = document.getElementById('gameMessage');
-    messageElement.innerText = `Игрок ${player} победил!`;
+    messageElement.innerText = `Игрок ${player} победил(а)!`;
 }
 
 function announceDraw() {
@@ -107,3 +107,40 @@ function resetGame() {
 
 const resetButton = document.getElementById('resetButton');
 resetButton.addEventListener('click', resetGame, false);
+
+// Выпадающее меню
+
+const dropDown = document.getElementById('dropDown');
+const dropDownMenu = document.getElementsByClassName('drop-down__menu-box');
+
+console.log(dropDownMenu);
+
+dropDown.addEventListener('click', (e) => {
+    dropDownMenuToggle();
+})
+
+function dropDownMenuToggle() {
+    dropDownMenu[0].classList.toggle('drop-down--active');
+}
+
+
+/*
+const dropDownItems = document.getElementsByClassName('drop-down__item');
+    dropDownItemsToggle();
+
+function dropDownItemsToggle(){
+    for (let i = 0; i < dropDownItems.length; i++) {
+        dropDownItems[i].classList.toggle('drop-down--active')
+    }
+}
+
+
+$(document).ready(function(){
+    $('#dropDown').click(function(){
+        $('.drop-down').toggleClass('drop-down--active');
+    });
+});
+
+dropDownItems.classList.toggle('drop-down--active');
+
+ */
