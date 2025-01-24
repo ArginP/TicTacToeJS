@@ -8,6 +8,8 @@
 </head>
 <body>
 
+<div id="currentPlayerDisplay" class="game-message">Сейчас ходит Игрок X</div>
+
 <div id="tic-tac-toe-board">
     <div class="row">
         <div class="cell" id="cell-1"></div>
@@ -38,12 +40,34 @@
 
         <div class="drop-down__menu-box">
             <ul class="drop-down__menu">
-                <li data-name="playerNameX" class="drop-down__item">X изменить имя</li>
-                <li data-name="playerNameO" class="drop-down__item">O изменить имя</li>
-                <li data-name="score" class="drop-down__item">Счет (в разработке)</li>
+                <li id="playerNameX" class="drop-down__item">X изменить имя</li>
+                <li id="playerNameO" class="drop-down__item">O изменить имя</li>
+                <li id="score" class="drop-down__item">Показать счет</li>
             </ul>
         </div>
     </div>
+</div>
+
+<div id="scoreBoard" class="scoreBoard">
+    <table>
+        <caption>
+            Текущий счет
+        </caption>
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Игрок X</th>
+            <th scope="col">Игрок O</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">Побед</th>
+            <td id="scoreX">0</td>
+            <td id="scoreO">0</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 

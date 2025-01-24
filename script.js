@@ -1,6 +1,7 @@
 let currentPlayer = 'X'; // игрок X ходит первым
-let gameBoard = ['', '', '', '', '', '', '', '', '']; // 3x3 game board matrix
+let gameBoard = ['', '', '', '', '', '', '', '', '']; // 3x3 матрица игрового поля
 let gameActive = true;
+const currentPlayerDisplay = document.getElementById('currentPlayerDisplay'); // поле для отображения "Ход игрока N"
 
 // Переключение ходом между игроками
 
@@ -29,7 +30,6 @@ function cellClicked(clickedCellEvent) { // логика при клике на 
         return;
     }
 
-
     handlePlayerTurn(clickedCellIndex); // закрепляет ячейку за текущим игроком и переключает ход на второго игрока
     updateUI(); // обновляет интерфейс после клика
 }
@@ -39,6 +39,15 @@ function cellClicked(clickedCellEvent) { // логика при клике на 
 function updateUI() {
     for (let i = 0; i < cells.length; i++) {
         cells[i].innerText = gameBoard[i]; // отрисовывает игровое поле в соответствии с матрицей ячеек
+    }
+    if (gameActive) {
+        if (currentPlayer === 'X') {
+            currentPlayerDisplay.innerText = `Сейчас ходит ${displayedPlayerNameX}`;
+        } else if (currentPlayer === 'O') {
+            currentPlayerDisplay.innerText = `Сейчас ходит ${displayedPlayerNameO}`;
+        }
+    } else {
+        currentPlayerDisplay.innerText = '';
     }
 }
 
@@ -68,6 +77,8 @@ function checkForWinOrDraw() {
 
     if (roundWon) {
         announceWinner(currentPlayer); // текущий игрок победил
+        updateScoreTable(currentPlayer); // обновление счета
+        updateScoreTableUI(); // обновление отображения счета
         gameActive = false;
         return;
     }
@@ -84,7 +95,12 @@ function checkForWinOrDraw() {
 
 function announceWinner(player) {
     const messageElement = document.getElementById('gameMessage');
-    messageElement.innerText = `Игрок ${player} победил(а)!`;
+    if (player === 'X') {
+        messageElement.innerText = `${displayedPlayerNameX} победил(а)!`;
+    } else if (player === 'O') {
+        messageElement.innerText = `${displayedPlayerNameO} победил(а)!`;
+    }
+
 }
 
 function announceDraw() {
@@ -95,7 +111,7 @@ function announceDraw() {
 // Перезапуск игры
 
 function resetGame() {
-    gameBoard = ['', '', '', '', '', '', '', '', '']; // Очищает игровое поле
+    gameBoard = ['', '', '', '', '', '', '', '', '']; // Очищает матрицу игрового поля
     gameActive = true; // Делает игру активной
     currentPlayer = 'X'; // Первым ходит игрок X
     // Очищает ячейки в интерфейсе
@@ -103,6 +119,7 @@ function resetGame() {
         cell.innerText = '';
     });
     document.getElementById('gameMessage').innerText = '';
+    updateUI();
 }
 
 const resetButton = document.getElementById('resetButton');
@@ -113,8 +130,6 @@ resetButton.addEventListener('click', resetGame, false);
 const dropDown = document.getElementById('dropDown');
 const dropDownMenu = document.getElementsByClassName('drop-down__menu-box');
 
-console.log(dropDownMenu);
-
 dropDown.addEventListener('click', (e) => {
     dropDownMenuToggle();
 })
@@ -123,3 +138,64 @@ function dropDownMenuToggle() {
     dropDownMenu[0].classList.toggle('drop-down--active');
 }
 
+// Настраиваемые имена игроков
+
+let displayedPlayerNameX = 'Игрок X';
+let displayedPlayerNameO = 'Игрок O';
+
+const renameButtonX = document.getElementById('playerNameX');
+const renameButtonO = document.getElementById('playerNameO');
+
+renameButtonX.addEventListener('click', (e) => {
+    displayedPlayerNameX = prompt('Введите ваше имя:');
+    if (displayedPlayerNameX === null) {
+        displayedPlayerNameX = 'Игрок X'; // если пользователь отменит ввод имени, возвращает на по-умолчанию
+    }
+    updateUI(); // чтобы обновить поле "Ход игрока N"
+    dropDownMenuToggle(); // чтобы закрыть выплывающее меню
+})
+
+renameButtonO.addEventListener('click', (e) => {
+    displayedPlayerNameO = prompt('Введите ваше имя:');
+    if (displayedPlayerNameO === null) {
+        displayedPlayerNameO = 'Игрок O';
+    }
+    updateUI();
+    dropDownMenuToggle();
+})
+
+// Таблица счета побед
+
+let scoreTable = [0, 0]
+const scoreButton = document.getElementById('score');
+const scoreBoard = document.getElementById('scoreBoard');
+const scoreX = document.getElementById('scoreX');
+const scoreO = document.getElementById('scoreO');
+
+function updateScoreTable(currentPlayer) {
+    if (currentPlayer === 'X') {
+        scoreTable[0] = scoreTable[0] + 1;
+    } else if (currentPlayer === 'O') {
+        scoreTable[1] = scoreTable[1] + 1;
+    }
+}
+
+function updateScoreTableUI() {
+    scoreX.innerText = `${scoreTable[0]}`;
+    scoreO.innerText = `${scoreTable[1]}`;
+}
+
+function showScoreTable() {
+    scoreButton.classList.toggle('shown');
+    scoreBoard.classList.toggle('shown');
+    if (scoreButton.classList.contains('shown')) {
+        scoreButton.innerText = 'Скрыть счет';
+    } else {
+        scoreButton.innerText = 'Показать счет';
+    }
+    dropDownMenuToggle(); // чтобы закрыть выплывающее меню
+}
+
+scoreButton.addEventListener('click', (e) => {
+    showScoreTable();
+})
