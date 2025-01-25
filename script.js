@@ -71,6 +71,7 @@ function checkForWinOrDraw() {
         const [a, b, c] = winConditions[i];
         if (gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c]) {
             roundWon = true;
+            winSequence = [a, b, c];
             break;
         }
     }
@@ -79,6 +80,7 @@ function checkForWinOrDraw() {
         announceWinner(currentPlayer); // текущий игрок победил
         updateScoreTable(currentPlayer); // обновление счета
         updateScoreTableUI(); // обновление отображения счета
+        highlightWinCondition(); // подсветка победившей комбинации
         gameActive = false;
         return;
     }
@@ -88,6 +90,20 @@ function checkForWinOrDraw() {
         announceDraw(); // ничья
         gameActive = false;
         return;
+    }
+}
+
+// Подсветка победившей комбинации
+
+let winSequence = [];
+
+function highlightWinCondition() {
+    for (let i = 0; i < 9; i++) {
+        if (winSequence === '') {
+            cells[i].classList.remove('highlight');
+        } else if (i === winSequence[0] || i === winSequence[1] || i === winSequence[2]) {
+            cells[i].classList.add('highlight');
+        }
     }
 }
 
@@ -119,6 +135,8 @@ function resetGame() {
         cell.innerText = '';
     });
     document.getElementById('gameMessage').innerText = '';
+    winSequence = '';
+    highlightWinCondition();
     updateUI();
 }
 
@@ -146,13 +164,22 @@ let displayedPlayerNameO = 'Игрок O';
 const renameButtonX = document.getElementById('playerNameX');
 const renameButtonO = document.getElementById('playerNameO');
 
+const scoreBoardPlayerNameX = document.getElementById('scoreBoardPlayerNameX');
+const scoreBoardPlayerNameO = document.getElementById('scoreBoardPlayerNameO');
+
+function updateScoreBoardNames() {
+    scoreBoardPlayerNameX.innerText = `${displayedPlayerNameX}`;
+    scoreBoardPlayerNameO.innerText = `${displayedPlayerNameO}`;
+}
+
 renameButtonX.addEventListener('click', (e) => {
     displayedPlayerNameX = prompt('Введите ваше имя:');
     if (displayedPlayerNameX === null) {
         displayedPlayerNameX = 'Игрок X'; // если пользователь отменит ввод имени, возвращает на по-умолчанию
     }
-    updateUI(); // чтобы обновить поле "Ход игрока N"
-    dropDownMenuToggle(); // чтобы закрыть выплывающее меню
+    dropDownMenuToggle(); // закрыть выплывающее меню
+    updateUI(); // обновить поле "Ход игрока N"
+    updateScoreBoardNames(); // обновить имена в таблице счета
 })
 
 renameButtonO.addEventListener('click', (e) => {
@@ -160,8 +187,9 @@ renameButtonO.addEventListener('click', (e) => {
     if (displayedPlayerNameO === null) {
         displayedPlayerNameO = 'Игрок O';
     }
-    updateUI();
     dropDownMenuToggle();
+    updateUI();
+    updateScoreBoardNames();
 })
 
 // Таблица счета побед

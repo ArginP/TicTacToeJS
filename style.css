@@ -51,6 +51,14 @@ body {
     background-color: #e3e3e3;
 }
 
+.cell.highlight {
+    background-color: lightgreen;
+}
+
+.cell.highlight:hover {
+    background-color: limegreen;
+}
+
 .game-message {
     text-align: center;
     height: 23px; /* Высота сообщения, чтобы кнопка под сообщением не ездила */
@@ -76,7 +84,7 @@ body {
     background-color: #555;
 }
 
-/* стили для выпадающего меню */
+/* Выпадающее меню */
 
 .table_center {
     display: table-cell;
