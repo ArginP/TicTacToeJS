@@ -143,18 +143,7 @@ function resetGame() {
 const resetButton = document.getElementById('resetButton');
 resetButton.addEventListener('click', resetGame, false);
 
-// Выпадающее меню
-
-const dropDown = document.getElementById('dropDown');
-const dropDownMenu = document.getElementsByClassName('drop-down__menu-box');
-
-dropDown.addEventListener('click', (e) => {
-    dropDownMenuToggle();
-})
-
-function dropDownMenuToggle() {
-    dropDownMenu[0].classList.toggle('drop-down--active');
-}
+const popover = document.getElementById('popover-settings');
 
 // Настраиваемые имена игроков
 
@@ -177,7 +166,7 @@ renameButtonX.addEventListener('click', (e) => {
     if (displayedPlayerNameX === null) {
         displayedPlayerNameX = 'Игрок X'; // если пользователь отменит ввод имени, возвращает на по-умолчанию
     }
-    dropDownMenuToggle(); // закрыть выплывающее меню
+    popover.hidePopover(); // закрыть поповер меню
     updateUI(); // обновить поле "Ход игрока N"
     updateScoreBoardNames(); // обновить имена в таблице счета
 })
@@ -187,7 +176,7 @@ renameButtonO.addEventListener('click', (e) => {
     if (displayedPlayerNameO === null) {
         displayedPlayerNameO = 'Игрок O';
     }
-    dropDownMenuToggle();
+    popover.hidePopover();
     updateUI();
     updateScoreBoardNames();
 })
@@ -221,7 +210,7 @@ function showScoreTable() {
     } else {
         scoreButton.innerText = 'Показать счет';
     }
-    dropDownMenuToggle(); // чтобы закрыть выплывающее меню
+    popover.hidePopover();
 }
 
 scoreButton.addEventListener('click', (e) => {

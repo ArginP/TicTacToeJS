@@ -30,21 +30,16 @@
 
 <div id="gameMessage" class="game-message"></div>
 
+<div class="menu-container">
+    <button id="resetButton" class="button">Сбросить</button>
 
-<div class="table_center">
-    <div id="resetButton" class="button">Сбросить</div>
-    <div class="drop-down">
-        <div id="dropDown" class="drop-down__button">
-            <span class="button">Настройки</span>
-        </div>
-
-        <div class="drop-down__menu-box">
-            <ul class="drop-down__menu">
-                <li id="playerNameX" class="drop-down__item">X изменить имя</li>
-                <li id="playerNameO" class="drop-down__item">O изменить имя</li>
-                <li id="score" class="drop-down__item">Показать счет</li>
-            </ul>
-        </div>
+    <button popovertarget="popover-settings" class="button">Настройки</button>
+    <div id="popover-settings" popover="auto">
+        <ul class="popover-settings-menu">
+            <li id="playerNameX" class="popover-settings-item button">X изменить имя</li>
+            <li id="playerNameO" class="popover-settings-item button">O изменить имя</li>
+            <li id="score" class="popover-settings-item button">Показать счет</li>
+        </ul>
     </div>
 </div>
 
@@ -69,7 +64,6 @@
         </tbody>
     </table>
 </div>
-
 
 <script src="script.js"></script>
 </body>

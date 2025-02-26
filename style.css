@@ -3,6 +3,7 @@
 html {
     height: 100%;
     width: 100%;
+    box-sizing: border-box;
 }
 
 html, body {
@@ -78,108 +79,44 @@ body {
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+    width: 150px;
 }
 
 .button:hover {
     background-color: #555;
 }
 
-/* Выпадающее меню */
+/* Поповер меню */
 
-.table_center {
-    display: table-cell;
-    vertical-align: center;
-
+.menu-container {
+    display: flex;
+    flex-direction: column;
+    width: 150px;
 }
 
-.drop-down {
-    display: inline-block;
-    position: relative;
-}
-
-.drop-down__button {
-    display: inline-block;
-    line-height: 40px;
-    cursor: pointer;
-}
-
-.drop-down__menu-box {
-    position: absolute;
-    width: 100%;
-    left: 0;
-    background-color: #fff;
-    transition: all 0.3s;
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    -ms-transition: all 0.3s;
-    -o-transition: all 0.3s;
-    visibility: hidden;
-    opacity: 0;
-    margin-top: 5px;
-}
-
-.drop-down__menu-box.drop-down--active {
-    visibility: visible;
-    opacity: 1;
-    margin-top: 15px;
-}
-
-.drop-down__menu {
+#popover-settings {
+    background: #333;
+    border-radius: 5px;
+    border: solid 1px #333;
     margin: 0;
-    padding: 0 13px;
+    padding: 0;
+    position: absolute; /* Поповер отрисовывается на верхнем слое, и позиционируется по вьюпорту */
+    top: calc(50% + 210px);
+    left: calc(50% - 100px);
+}
+
+.popover-settings-menu {
     list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
-.drop-down__menu-box:before {
-    content: '';
-    background-color: transparent;
-    border-right: 8px solid transparent;
-    position: absolute;
-    border-left: 8px solid transparent;
-    border-bottom: 8px solid #fff;
-    border-top: 8px solid transparent;
-    top: -15px;
-    right: 18px;
+.popover-settings-menu .button {
+    background-color: dimgrey;
 }
 
-.drop-down__menu-box:after {
-    content: '';
-    background-color: transparent;
-}
-
-.drop-down__item {
-    font-size: 13px;
-    padding: 13px 0;
-    text-align: left;
-    font-weight: 500;
-    color: #909dc2;
-    cursor: pointer;
-    position: relative;
-    border-bottom: 1px solid #e0e2e9;
-}
-
-.drop-down__item:hover {
-    color: #3d6def;
-}
-
-.drop-down__item:last-of-type {
-    border-bottom: 0;
-}
-
-.drop-down__item:before {
-    content: '';
-    position: absolute;
-    width: 3px;
-    height: 28px;
-    background-color: #3d6def;
-    left: -13px;
-    top: 50%;
-    transform: translateY(-50%);
-    display: none;
-}
-
-.drop-down__item:hover:before {
-    display: block;
+.popover-settings-menu .button:hover {
+    background-color: lightslategray;
 }
 
 /* Таблица счета */
@@ -222,6 +159,10 @@ body {
         width: 186px;
         font-size: 12px;
     }
+
+    #popover-settings {
+        top: calc(50% + 160px);
+    }
 }
 
 @media (max-width: 400px) {
@@ -241,5 +182,9 @@ body {
         margin: 16px 0;
         font-size: 16px;
         color: #333;
+    }
+
+    #popover-settings {
+        top: calc(50% + 145px);
     }
 }
