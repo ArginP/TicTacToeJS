@@ -142,6 +142,17 @@ body {
     opacity: 1;
 }
 
+.reset-score-button {
+    font-size: small;
+    width: 90%;
+    padding: 5px 0;
+    background-color: dimgrey;
+}
+
+.reset-score-button:hover {
+    background-color: lightslategray;
+}
+
 /* Адаптивность */
 
 @media (max-width: 600px) {
@@ -158,6 +169,10 @@ body {
     #scoreBoard {
         width: 186px;
         font-size: 12px;
+    }
+
+    .reset-score-button {
+        font-size: smaller;
     }
 
     #popover-settings {

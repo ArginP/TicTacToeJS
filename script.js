@@ -5,7 +5,7 @@ let gameBoard = ['', '', '', '', '', '', '', '', '']; // 3x3 матрица иг
 let gameActive = true;
 const currentPlayerDisplay = document.getElementById('currentPlayerDisplay'); // поле для отображения "Ход игрока N"
 
-// Переключение ходом между игроками
+// --- Переключение ходом между игроками ---
 
 function handlePlayerTurn(clickedCellIndex) {
     if (gameBoard[clickedCellIndex] !== '' || !gameActive) { // проверяет, что ячейка свободна и игра активна
@@ -16,7 +16,7 @@ function handlePlayerTurn(clickedCellIndex) {
     currentPlayer = currentPlayer === 'X' ? 'O' : 'X'; // переключает на второго игрока
 }
 
-// Базовая игровая логика
+// --- Базовая игровая логика ---
 
 const cells = document.querySelectorAll('.cell');
 
@@ -36,7 +36,7 @@ function cellClicked(clickedCellEvent) { // логика при клике на 
     updateUI(); // обновляет интерфейс после клика
 }
 
-// Обновление интерфейса
+// --- Обновление интерфейса ---
 
 function updateUI() {
     for (let i = 0; i < cells.length; i++) {
@@ -53,7 +53,7 @@ function updateUI() {
     }
 }
 
-// Условия победы
+// --- Условия победы ---
 
 const winConditions = [
     [0, 1, 2], // Верхняя строка
@@ -95,7 +95,7 @@ function checkForWinOrDraw() {
     }
 }
 
-// Подсветка победившей комбинации
+// --- Подсветка победившей комбинации ---
 
 let winSequence = [];
 
@@ -109,7 +109,7 @@ function highlightWinCondition() {
     }
 }
 
-// Объявление победителя или ничьи
+// --- Объявление победителя или ничьи ---
 
 function announceWinner(player) {
     const messageElement = document.getElementById('gameMessage');
@@ -126,7 +126,7 @@ function announceDraw() {
     messageElement.innerText = 'Ничья!';
 }
 
-// Перезапуск игры
+// --- Перезапуск игры ---
 
 function resetGame() {
     gameBoard = ['', '', '', '', '', '', '', '', '']; // Очищает матрицу игрового поля
@@ -147,7 +147,7 @@ resetButton.addEventListener('click', resetGame, false);
 
 const popover = document.getElementById('popover-settings');
 
-// Настраиваемые имена игроков
+// --- Настраиваемые имена игроков ---
 
 let displayedPlayerNameX = 'Игрок X';
 let displayedPlayerNameO = 'Игрок O';
@@ -183,7 +183,7 @@ renameButtonO.addEventListener('click', () => {
     updateScoreBoardNames();
 })
 
-// Таблица счета побед
+// --- Таблица счета побед ---
 
 let scoreTable = getLocalStorage();
 const scoreButton = document.getElementById('score');
@@ -222,4 +222,11 @@ scoreButton.addEventListener('click', () => {
     showScoreTable();
 })
 
-// updateScoreTableUI(); // Получение сохраненного счета из localStorage и отрисовка его при
+// --- Обнуление счета ---
+
+const resetScoreButton = document.getElementById('resetScoreButton');
+resetScoreButton.addEventListener('click', () => {
+    scoreTable = [0, 0];
+    setLocalStorage(scoreTable);
+    updateScoreTableUI();
+})
