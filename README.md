@@ -1,12 +1,12 @@
 # TicTacToe JS
-## Крестики-нолики
+## Крестики-нолики на нативном JS
 Practice project
 
 ## Использованные стеки технологий:
 
 - HTML / popover API
 - CSS
-- JavaScript
+- JavaScript / native JS modules
 
 ## Реализованный функционал:
 
@@ -16,3 +16,4 @@ Practice project
 - Ведение счета побед
 - Смена имен игроков
 - Выпадающее меню настроек, созданное с помощью popover API
+- Хранение счета побед в localStorage

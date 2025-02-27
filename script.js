@@ -1,3 +1,5 @@
+import { setLocalStorage, getLocalStorage } from './helpers.js';
+
 let currentPlayer = 'X'; // игрок X ходит первым
 let gameBoard = ['', '', '', '', '', '', '', '', '']; // 3x3 матрица игрового поля
 let gameActive = true;
@@ -161,7 +163,7 @@ function updateScoreBoardNames() {
     scoreBoardPlayerNameO.innerText = `${displayedPlayerNameO}`;
 }
 
-renameButtonX.addEventListener('click', (e) => {
+renameButtonX.addEventListener('click', () => {
     displayedPlayerNameX = prompt('Введите ваше имя:');
     if (displayedPlayerNameX === null) {
         displayedPlayerNameX = 'Игрок X'; // если пользователь отменит ввод имени, возвращает на по-умолчанию
@@ -171,7 +173,7 @@ renameButtonX.addEventListener('click', (e) => {
     updateScoreBoardNames(); // обновить имена в таблице счета
 })
 
-renameButtonO.addEventListener('click', (e) => {
+renameButtonO.addEventListener('click', () => {
     displayedPlayerNameO = prompt('Введите ваше имя:');
     if (displayedPlayerNameO === null) {
         displayedPlayerNameO = 'Игрок O';
@@ -183,7 +185,7 @@ renameButtonO.addEventListener('click', (e) => {
 
 // Таблица счета побед
 
-let scoreTable = [0, 0]
+let scoreTable = getLocalStorage();
 const scoreButton = document.getElementById('score');
 const scoreBoard = document.getElementById('scoreBoard');
 const scoreX = document.getElementById('scoreX');
@@ -195,6 +197,8 @@ function updateScoreTable(currentPlayer) {
     } else if (currentPlayer === 'O') {
         scoreTable[1] = scoreTable[1] + 1;
     }
+
+    setLocalStorage(scoreTable);
 }
 
 function updateScoreTableUI() {
@@ -213,6 +217,9 @@ function showScoreTable() {
     popover.hidePopover();
 }
 
-scoreButton.addEventListener('click', (e) => {
+scoreButton.addEventListener('click', () => {
+    updateScoreTableUI();
     showScoreTable();
 })
+
+// updateScoreTableUI(); // Получение сохраненного счета из localStorage и отрисовка его при
