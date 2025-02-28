@@ -3,9 +3,10 @@ import { setLocalStorage, getLocalStorage } from './helpers.js';
 let currentPlayer = 'X'; // игрок X ходит первым
 let gameBoard = ['', '', '', '', '', '', '', '', '']; // 3x3 матрица игрового поля
 let gameActive = true;
+let data = getLocalStorage();
 const currentPlayerDisplay = document.getElementById('currentPlayerDisplay'); // поле для отображения "Ход игрока N"
 
-// --- Переключение ходом между игроками ---
+// --- Переключение ходов между игроками ---
 
 function handlePlayerTurn(clickedCellIndex) {
     if (gameBoard[clickedCellIndex] !== '' || !gameActive) { // проверяет, что ячейка свободна и игра активна
@@ -69,7 +70,7 @@ const winConditions = [
 function checkForWinOrDraw() {
     let roundWon = false;
 
-    for (let i = 0; i < winConditions.length; i++) { // циклом сверяем игровое поле со всеми условиями победы
+    for (let i = 0; i < winConditions.length; i++) { // циклом сверяет игровое поле со всеми условиями победы
         const [a, b, c] = winConditions[i];
         if (gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c]) {
             roundWon = true;
@@ -91,7 +92,6 @@ function checkForWinOrDraw() {
     if (roundDraw) {
         announceDraw(); // ничья
         gameActive = false;
-        return;
     }
 }
 
@@ -149,8 +149,8 @@ const popover = document.getElementById('popover-settings');
 
 // --- Настраиваемые имена игроков ---
 
-let displayedPlayerNameX = 'Игрок X';
-let displayedPlayerNameO = 'Игрок O';
+let displayedPlayerNameX = data[2];
+let displayedPlayerNameO = data[3];
 
 const renameButtonX = document.getElementById('playerNameX');
 const renameButtonO = document.getElementById('playerNameO');
@@ -171,6 +171,8 @@ renameButtonX.addEventListener('click', () => {
     popover.hidePopover(); // закрыть поповер меню
     updateUI(); // обновить поле "Ход игрока N"
     updateScoreBoardNames(); // обновить имена в таблице счета
+    data.splice(2, 1, displayedPlayerNameX); // по индексу заменяем значение имени игрок Х, сохраненное в localStorage
+    setLocalStorage(data); // перезаписывает localStorage
 })
 
 renameButtonO.addEventListener('click', () => {
@@ -181,11 +183,12 @@ renameButtonO.addEventListener('click', () => {
     popover.hidePopover();
     updateUI();
     updateScoreBoardNames();
+    data.splice(3, 1, displayedPlayerNameO);
+    setLocalStorage(data);
 })
 
 // --- Таблица счета побед ---
 
-let scoreTable = getLocalStorage();
 const scoreButton = document.getElementById('score');
 const scoreBoard = document.getElementById('scoreBoard');
 const scoreX = document.getElementById('scoreX');
@@ -193,17 +196,17 @@ const scoreO = document.getElementById('scoreO');
 
 function updateScoreTable(currentPlayer) {
     if (currentPlayer === 'X') {
-        scoreTable[0] = scoreTable[0] + 1;
+        data[0] = data[0] + 1;
     } else if (currentPlayer === 'O') {
-        scoreTable[1] = scoreTable[1] + 1;
+        data[1] = data[1] + 1;
     }
 
-    setLocalStorage(scoreTable);
+    setLocalStorage(data);
 }
 
 function updateScoreTableUI() {
-    scoreX.innerText = `${scoreTable[0]}`;
-    scoreO.innerText = `${scoreTable[1]}`;
+    scoreX.innerText = `${data[0]}`;
+    scoreO.innerText = `${data[1]}`;
 }
 
 function showScoreTable() {
@@ -215,6 +218,7 @@ function showScoreTable() {
         scoreButton.innerText = 'Показать счет';
     }
     popover.hidePopover();
+    updateScoreBoardNames();
 }
 
 scoreButton.addEventListener('click', () => {
@@ -227,9 +231,11 @@ scoreButton.addEventListener('click', () => {
 const resetScoreButton = document.getElementById('resetScoreButton');
 resetScoreButton.addEventListener('click', () => {
     if(window.confirm("Вы уверены, что хотите обнулить счет?")) {
-        scoreTable = [0, 0];
-        setLocalStorage(scoreTable);
+        data.splice(0, 2, 0, 0);
+        setLocalStorage(data);
         updateScoreTableUI();
         resetGame();
     }
 })
+
+updateUI(); // обновляет имена игроков, на случай если они уже изменены, и хранятся в localStorage
