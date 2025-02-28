@@ -226,7 +226,10 @@ scoreButton.addEventListener('click', () => {
 
 const resetScoreButton = document.getElementById('resetScoreButton');
 resetScoreButton.addEventListener('click', () => {
-    scoreTable = [0, 0];
-    setLocalStorage(scoreTable);
-    updateScoreTableUI();
+    if(window.confirm("Вы уверены, что хотите обнулить счет?")) {
+        scoreTable = [0, 0];
+        setLocalStorage(scoreTable);
+        updateScoreTableUI();
+        resetGame();
+    }
 })
