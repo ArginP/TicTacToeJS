@@ -196,9 +196,9 @@ const scoreO = document.getElementById('scoreO');
 
 function updateScoreTable(currentPlayer) {
     if (currentPlayer === 'X') {
-        data[0] = data[0] + 1;
+        data[0]++;
     } else if (currentPlayer === 'O') {
-        data[1] = data[1] + 1;
+        data[1]++;
     }
 
     setLocalStorage(data);
