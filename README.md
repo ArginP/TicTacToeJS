@@ -5,7 +5,7 @@ Practice project
 ## Использованные стеки технологий:
 
 - HTML / popover API
-- CSS
+- CSS / vendor prefixes
 - JavaScript / native JS modules
 
 ## Реализованный функционал:
@@ -19,3 +19,4 @@ Practice project
 - Хранение счета побед и имен игроков в localStorage
 - Обнуление счета с окном подтверждения
 - Анимации popover API
+- Стили с префиксами вендоров для поддержки старых браузеров

@@ -1,0 +1,422 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+
+html {
+    height: 100%;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html, body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: -webkit-gradient(linear, left top, right top, from(#74ebd5), to(#ACB6E5));
+    background: -o-linear-gradient(left, #74ebd5, #ACB6E5);
+    background: linear-gradient(to right, #74ebd5, #ACB6E5);
+    color: #333;
+}
+
+#tic-tac-toe-board {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 100px 0.2rem 100px 0.2rem 100px;
+    grid-template-columns: repeat(3, 100px);
+    -ms-grid-rows: 100px 0.2rem 100px 0.2rem 100px;
+    grid-template-rows: repeat(3, 100px);
+    gap: 0.2rem;
+}
+
+#tic-tac-toe-board > *:nth-child(1) {
+    -ms-grid-row: 1;
+    -ms-grid-column: 1;
+}
+
+#tic-tac-toe-board > *:nth-child(2) {
+    -ms-grid-row: 1;
+    -ms-grid-column: 3;
+}
+
+#tic-tac-toe-board > *:nth-child(3) {
+    -ms-grid-row: 1;
+    -ms-grid-column: 5;
+}
+
+#tic-tac-toe-board > *:nth-child(4) {
+    -ms-grid-row: 3;
+    -ms-grid-column: 1;
+}
+
+#tic-tac-toe-board > *:nth-child(5) {
+    -ms-grid-row: 3;
+    -ms-grid-column: 3;
+}
+
+#tic-tac-toe-board > *:nth-child(6) {
+    -ms-grid-row: 3;
+    -ms-grid-column: 5;
+}
+
+#tic-tac-toe-board > *:nth-child(7) {
+    -ms-grid-row: 5;
+    -ms-grid-column: 1;
+}
+
+#tic-tac-toe-board > *:nth-child(8) {
+    -ms-grid-row: 5;
+    -ms-grid-column: 3;
+}
+
+#tic-tac-toe-board > *:nth-child(9) {
+    -ms-grid-row: 5;
+    -ms-grid-column: 5;
+}
+
+.cell {
+    background-color: #fff;
+    border: 2px solid midnightblue;
+    border-radius: 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    font-size: 2rem;
+    cursor: pointer;
+    -webkit-transition: background-color 0.3s ease;
+    -o-transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease;
+    width: 100px;
+    height: 100px;
+}
+
+.cell:hover {
+    background-color: #e3e3e3;
+}
+
+.cell.highlight {
+    background-color: lightgreen;
+}
+
+.cell.highlight:hover {
+    background-color: limegreen;
+}
+
+.game-message {
+    text-align: center;
+    height: 23px; /* Высота сообщения, чтобы кнопка под сообщением не ездила */
+    margin: 20px 0;
+    font-size: 20px;
+    color: #333;
+}
+
+.button {
+    padding: 10px 20px;
+    margin: 2px;
+    font-size: 1rem;
+    text-align: center;
+    color: #fff;
+    background-color: #333;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    -webkit-transition: background-color 0.3s ease;
+    -o-transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease;
+    width: 150px;
+}
+
+.button:hover {
+    background-color: #555;
+}
+
+/* Поповер меню */
+
+.menu-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 150px;
+}
+
+#popover-settings {
+    background: #333;
+    border-radius: 5px;
+    border: solid 1px #333;
+    margin: 0;
+    padding: 0;
+    position: absolute; /* Поповер отрисовывается на верхнем слое, и позиционируется по вьюпорту */
+    top: calc(50% + 210px);
+    left: calc(50% - 98px);
+}
+
+.popover-settings-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.popover-settings-menu .button {
+    background-color: dimgrey;
+}
+
+.popover-settings-menu .button:hover {
+    background-color: lightslategray;
+}
+
+/* Анимация поповера */
+
+[popover]:popover-open {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+}
+
+[popover] {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    -ms-transform: scale(0);
+    transform: scale(0);
+    -webkit-transform-origin: top center;
+    -ms-transform-origin: top center;
+    transform-origin: top center;
+    -webkit-transition-property: opacity, overlay, display, -webkit-transform;
+    transition-property: opacity, overlay, display, -webkit-transform;
+    -o-transition-property: opacity, transform, overlay, display;
+    transition-property: opacity, transform, overlay, display;
+    transition-property: opacity, transform, overlay, display, -webkit-transform;
+    -webkit-transition: all 0.3s allow-discrete;
+    -o-transition: all 0.3s allow-discrete;
+    transition: all 0.3s allow-discrete;
+}
+
+@starting-style {
+    [popover]:popover-open {
+        opacity: 0;
+        -webkit-transform: scale(0);
+        -ms-transform: scale(0);
+        transform: scale(0);
+    }
+}
+
+/* Таблица счета */
+
+#scoreBoard {
+    visibility: hidden;
+    opacity: 0;
+    background-color: #555555;
+    color: #fff;
+    text-align: center;
+    width: 306px;
+    -ms-flex-line-pack: space-evenly;
+    align-content: space-evenly;
+    -webkit-box-pack: space-evenly;
+    -ms-flex-pack: space-evenly;
+    justify-content: space-evenly;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    margin: 10px;
+    padding: 4px;
+    border-radius: 5px;
+}
+
+#scoreBoard.shown {
+    visibility: visible;
+    opacity: 1;
+}
+
+.reset-score-button {
+    font-size: small;
+    width: 90%;
+    padding: 5px 0;
+    background-color: dimgrey;
+}
+
+.reset-score-button:hover {
+    background-color: lightslategray;
+}
+
+/* Адаптивность */
+
+@media (max-width: 600px) {
+    .cell {
+        width: 60px;
+        height: 60px;
+    }
+
+    #tic-tac-toe-board {
+        -ms-grid-columns: (60px)[3];
+        grid-template-columns: repeat(3, 60px);
+        -ms-grid-rows: (60px)[3];
+        grid-template-rows: repeat(3, 60px);
+    }
+
+    #tic-tac-toe-board > *:nth-child(1) {
+        -ms-grid-row: 1;
+        -ms-grid-column: 1;
+    }
+
+    #tic-tac-toe-board > *:nth-child(2) {
+        -ms-grid-row: 1;
+        -ms-grid-column: 2;
+    }
+
+    #tic-tac-toe-board > *:nth-child(3) {
+        -ms-grid-row: 1;
+        -ms-grid-column: 3;
+    }
+
+    #tic-tac-toe-board > *:nth-child(4) {
+        -ms-grid-row: 2;
+        -ms-grid-column: 1;
+    }
+
+    #tic-tac-toe-board > *:nth-child(5) {
+        -ms-grid-row: 2;
+        -ms-grid-column: 2;
+    }
+
+    #tic-tac-toe-board > *:nth-child(6) {
+        -ms-grid-row: 2;
+        -ms-grid-column: 3;
+    }
+
+    #tic-tac-toe-board > *:nth-child(7) {
+        -ms-grid-row: 3;
+        -ms-grid-column: 1;
+    }
+
+    #tic-tac-toe-board > *:nth-child(8) {
+        -ms-grid-row: 3;
+        -ms-grid-column: 2;
+    }
+
+    #tic-tac-toe-board > *:nth-child(9) {
+        -ms-grid-row: 3;
+        -ms-grid-column: 3;
+    }
+
+    #scoreBoard {
+        width: 186px;
+        font-size: 12px;
+    }
+
+    .reset-score-button {
+        font-size: smaller;
+    }
+
+    #popover-settings {
+        top: calc(50% + 160px);
+    }
+}
+
+@media (max-width: 400px) {
+    .cell {
+        width: 60px;
+        height: 60px;
+    }
+
+    #tic-tac-toe-board {
+        -ms-grid-columns: (60px)[3];
+        grid-template-columns: repeat(3, 60px);
+        -ms-grid-rows: (60px)[3];
+        grid-template-rows: repeat(3, 60px);
+    }
+
+    #tic-tac-toe-board > *:nth-child(1) {
+        -ms-grid-row: 1;
+        -ms-grid-column: 1;
+    }
+
+    #tic-tac-toe-board > *:nth-child(2) {
+        -ms-grid-row: 1;
+        -ms-grid-column: 2;
+    }
+
+    #tic-tac-toe-board > *:nth-child(3) {
+        -ms-grid-row: 1;
+        -ms-grid-column: 3;
+    }
+
+    #tic-tac-toe-board > *:nth-child(4) {
+        -ms-grid-row: 2;
+        -ms-grid-column: 1;
+    }
+
+    #tic-tac-toe-board > *:nth-child(5) {
+        -ms-grid-row: 2;
+        -ms-grid-column: 2;
+    }
+
+    #tic-tac-toe-board > *:nth-child(6) {
+        -ms-grid-row: 2;
+        -ms-grid-column: 3;
+    }
+
+    #tic-tac-toe-board > *:nth-child(7) {
+        -ms-grid-row: 3;
+        -ms-grid-column: 1;
+    }
+
+    #tic-tac-toe-board > *:nth-child(8) {
+        -ms-grid-row: 3;
+        -ms-grid-column: 2;
+    }
+
+    #tic-tac-toe-board > *:nth-child(9) {
+        -ms-grid-row: 3;
+        -ms-grid-column: 3;
+    }
+
+    .game-message {
+        text-align: center;
+        height: 17px; /* Высота сообщения, чтобы кнопка под сообщением не ездила */
+        margin: 16px 0;
+        font-size: 16px;
+        color: #333;
+    }
+
+    #popover-settings {
+        top: calc(50% + 145px);
+    }
+}
